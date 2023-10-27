@@ -1,10 +1,10 @@
-import { registerNewFlightRepository } from "../repositories/flights-repositories.js"
+import { flightsService } from "../services/flights-service.js"
 
 export async function registerNewFlight (request, response) {
     const { origin, destination, date } = request.body
 
     try {
-        const newFlightData = await registerNewFlightRepository( { origin, destination, date } )
+        const newFlightData = await flightsService.registerNewFlightConditions( { origin, destination, date } )
       
         response.status(201).send(newFlightData.rows)
 
