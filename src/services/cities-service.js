@@ -1,9 +1,10 @@
+import { conflictError } from "../errors/errors.js"
 import { citiesRepository } from "../repositories/cities-repository.js"
 
 async function addNewCityConditions (name) {
-    const isCityAlreadyRegistered = citiesRepository.findCity(name)
+    const isCityAlreadyRegistered = await citiesRepository.findCity(name)
 
-    // if (isCityAlreadyRegistered !== undefined) return response.status(409).send( { message: "This city is already registered!" } )
+    if (isCityAlreadyRegistered.rowCount !== 0) throw conflictError("city") 
 
     const newCityData = await citiesRepository.insertNewCity(name)
 
@@ -11,3 +12,11 @@ async function addNewCityConditions (name) {
 }
 
 export const citiesService = { addNewCityConditions }
+
+
+// esta função já checa se a cidade está registrada no banco (exemplo no exercício "me-ve-um-erro-mais-bonito", aula dia 25/10)
+
+// let cities = []
+// async function getCity(TargetCity) {
+    // return cities.find(( { city } ) => city === targetCity)
+// }
