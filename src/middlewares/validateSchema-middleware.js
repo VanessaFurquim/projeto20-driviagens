@@ -6,7 +6,7 @@ export function validateSchema(schema) {
             const errors = validation.error.details.map(detail => detail.message)
             console.log(errors)
             
-            throw { type: "UNPROCESSABLE ENTITY", message: validation.error.message }
+            throw unprocessableEntityError( { message: validation.error.message } )
         }
 
         next()
