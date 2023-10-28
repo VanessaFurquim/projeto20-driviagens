@@ -1,3 +1,5 @@
+import { unprocessableEntityError } from "../errors/errors.js"
+
 export function validateSchema(schema) {
     return (request, response, next) => {
         const validation = schema.validate(request.body, { abortEarly: false } )
