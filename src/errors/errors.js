@@ -1,3 +1,7 @@
-export function conflictError (item) {
-    return { type: "CONFLICT", message: `This ${item} is already registered!` }
+export function conflictError (message) {
+    return { type: "CONFLICT", message }
+}
+
+export function notFoundError (item) {
+    return { type: "NOT FOUND", message: `This ${item} is not valid!` }
 }

@@ -1,6 +1,6 @@
 import { Router } from "express"
-import { citySchema } from "../schemas/cities-schemas.js"
 import { validateSchema } from "../middlewares/validateSchema-middleware.js"
+import { citySchema } from "../schemas/cities-schemas.js"
 import { citiesController } from "../controllers/cities-controller.js"
 
 const citiesRouter = Router()

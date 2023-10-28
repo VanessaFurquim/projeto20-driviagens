@@ -4,7 +4,7 @@ import { citiesRepository } from "../repositories/cities-repository.js"
 async function addNewCityConditions (name) {
     const isCityAlreadyRegistered = await citiesRepository.findCity(name)
 
-    if (isCityAlreadyRegistered.rowCount !== 0) throw conflictError("city") 
+    if (isCityAlreadyRegistered.rowCount !== 0) throw conflictError("This city is already registered!") 
 
     const newCityData = await citiesRepository.insertNewCity(name)
 

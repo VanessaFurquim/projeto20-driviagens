@@ -1,12 +1,17 @@
+import status from "http-status"
 import { flightsService } from "../services/flights-service.js"
 
-export async function registerNewFlight (request, response) {
+async function addNewFlight (request, response) {
     const { origin, destination, date } = request.body
 
-    try {
-        const newFlightData = await flightsService.registerNewFlightConditions( { origin, destination, date } )
-      
-        response.status(201).send(newFlightData.rows)
-
-    } catch (error) { response.status(500).send(error.message) }
+    const newFlightData = await flightsService.addNewFlightConditions( { origin, destination, date } )
+    
+    response.status(status.CREATED).send({
+        id: newFlightData.rows[0].id,
+        origin: newFlightData.rows[0].origin,
+        destination: newFlightData.rows[0].destination,
+        date: newFlightData.rows[0].date
+    })
 }
+
+export const flightsController = { addNewFlight }

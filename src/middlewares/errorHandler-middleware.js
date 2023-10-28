@@ -7,5 +7,7 @@ export default function errorHandler(error, request, response, next) {
 
     if (error.type === "CONFLICT") return response.status(status.CONFLICT).send(error.message)
 
+    if (error.type === "NOT FOUND") return response.status(status.NOT_FOUND).send(error.message)
+
     return response.status(status.INTERNAL_SERVER_ERROR).send("Sorry, something went wrong.")
 }
