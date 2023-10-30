@@ -19,6 +19,7 @@ async function findFlights ( { originCityId, destinationCityId } ) {
                 `
 
         let queryEnd = `ORDER BY date DESC;`
+        
         let queryComplement
         let queryComplementOrigin
         let queryComplementDestination

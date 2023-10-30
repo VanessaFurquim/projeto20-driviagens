@@ -13,6 +13,7 @@ async function addNewFlight (request, response) {
 
 async function findAllFlights (request, response) {
     const { origin, destination } = request.query
+    console.log(request.query)
 
     const allFlightsData = await flightsService.findFlightsConditions( { origin, destination } )
 
