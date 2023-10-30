@@ -1,6 +1,8 @@
 import db from "../database/databaseConfig.js"
 
 async function findAllPassengersTravels (passengerName) {
+    let listOfPassengersTravels
+
     let queryBeggining = `SELECT
                         passengers."firstName",
                         passengers."lastName",
@@ -8,8 +10,8 @@ async function findAllPassengersTravels (passengerName) {
                     FROM travels
                     RIGHT JOIN passengers ON travels."passengerId" = passengers.id
                 `
-    let queryFilter = `WHERE passengers."firstName" LIKE '%${passengerName}%'
-                        OR passengers."lastName" LIKE '%${passengerName}%'
+    let queryFilter = `WHERE passengers."firstName" LIKE $1
+                        OR passengers."lastName" LIKE $2
                     `
 
     let queryEnd = `GROUP BY travels."passengerId",
@@ -20,15 +22,16 @@ async function findAllPassengersTravels (passengerName) {
                     
     let fullQuery
 
-    // const parameterValues = []
-
-    if (passengerName) {
-        fullQuery = queryBeggining + queryFilter + queryEnd
-    } else {
-        fullQuery = queryBeggining + queryEnd
+    if(passengerName){
+        fullQuery = queryBeggining + queryFilter + queryEnd;
+        console.log(fullQuery)
+        return listOfPassengersTravels = await db.query(fullQuery, [`%${passengerName}%`, `%${passengerName}%`])
     }
 
-    const listOfPassengersTravels = db.query(fullQuery)
+    fullQuery = queryBeggining + queryEnd
+    
+
+    listOfPassengersTravels = await db.query(fullQuery)
 
     return listOfPassengersTravels
 }
