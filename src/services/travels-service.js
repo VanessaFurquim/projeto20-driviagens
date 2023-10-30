@@ -7,7 +7,7 @@ async function createNewTripConditions ( { passengerId, flightId } ) {
 
     if (isPassengerExistent.rowCount !== 0) throw notFoundError( { message: "This passenger id is not valid!" } )
 
-    const isFlightExistent = await tripsRepository.findFlight(passengerId)
+    const isFlightExistent = await tripsRepository.findFlight(flightId)
 
     if (isFlightExistent.rowCount !== 0) throw notFoundError( { message: "This flight id is not valid!" } )
 
